@@ -1,0 +1,20 @@
+[project]
+name = "beancount_repete"
+version = "1.0"
+description = "A Beancount plugin that expands recurring transactions using natural language rules."
+authors = [
+  { name = "Jonathan Matthews", email = "github@hello.jonathanmatthews.com" }
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.8"
+
+dependencies = [
+    "python-dateutil",
+    "recurrent",
+    "beancount",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
