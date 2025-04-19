@@ -11,28 +11,19 @@ Any Transaction used as a template is removed by the plugin during processing. T
 
 ## Installation
 
-Import the plugin however your beancount repository dictates.
+### Using pip
 
-The author currently uses this method, as this plugin is not yet set up as a properly-importable Python package:
+Use pip to install the package:
 
 ```shell
-$ grep pythonpath main.beancount 
-option "insert_pythonpath" "True"
-$ grep repete main.beancount 
-plugin "plugins.beancount-repete.plugin"
-$ cd plugins
-$ git submodule add https://github.com/jpluscplusm/beancount-repete
-Cloning into 'beancount-repete'...
-remote: Enumerating objects: 6, done.
-remote: Counting objects: 100% (6/6), done.
-remote: Compressing objects: 100% (5/5), done.
-remote: Total 6 (delta 0), reused 3 (delta 0), pack-reused 0
-Receiving objects: 100% (6/6), 12.65 KiB | 762.00 KiB/s, done.
+pip install git+https://github.com/jpluscplusm/beancount-repete
 ```
 
-### Dependencies
+Add this line to your beancount file to enable the plugin:
 
-Install the [Recurrent](https://github.com/kvh/recurrent) library. It is available [from PyPI](https://pypi.org/project/recurrent/).
+```
+plugin "beancount_repete"
+```
 
 ## Usage
 
@@ -44,9 +35,8 @@ Given this `example.beancount` input, and the beancount-repete plugin (set up as
 
 ```shell
 $ cat example.beancount
-option "insert_pythonpath" "True"
 
-plugin "plugins.beancount-repete.plugin"
+plugin "beancount_repete"
 plugin "beancount.plugins.auto_accounts"
 
 2022-01-01 ! "Supermarket" "Weekly shop"
@@ -160,3 +150,30 @@ $ bean-report example.beancount print
 ```
 
 Note that the original template, on 2022-01-01, is not present in this output. This is always true: if a template's schedule would not generate its original date when evaluated, the template Transaction will not be produced.
+
+
+## Installation into beancount repository 
+
+As an alternative to the default install method, you can copy the files of this plugin directly into the folder of your beancount file. Use the beancount option `insert_pythonpath` in this case. To access a subfolder, prepend it and separate with a dot, like for Python modules.
+
+This is how the setup of the author currently looks like:
+
+```shell
+$ grep pythonpath main.beancount 
+option "insert_pythonpath" "True"
+$ grep repete main.beancount 
+plugin "plugins.beancount-repete"
+$ cd plugins
+$ git submodule add https://github.com/jpluscplusm/beancount-repete
+Cloning into 'beancount-repete'...
+remote: Enumerating objects: 6, done.
+remote: Counting objects: 100% (6/6), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 6 (delta 0), reused 3 (delta 0), pack-reused 0
+Receiving objects: 100% (6/6), 12.65 KiB | 762.00 KiB/s, done.
+```
+
+When using this method, you have to install dependencies manually:
+
+Install the [Recurrent](https://github.com/kvh/recurrent) library. It is available [from PyPI](https://pypi.org/project/recurrent/).
+
