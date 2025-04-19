@@ -151,6 +151,15 @@ $ bean-report example.beancount print
 
 Note that the original template, on 2022-01-01, is not present in this output. This is always true: if a template's schedule would not generate its original date when evaluated, the template Transaction will not be produced.
 
+### Limit
+
+There will be no entries generated that fall past the limit given by the option *repeat_limit*. This option can be specified in the same syntax as for the `repete:` entry metadata shown above. The default is "in one year". Contrary to the entry metadata, this time point is resolved using the current time as reference.
+
+For example, if you want no repeting transactions to be generated that lie in the future, you can change the plugin load statement in your beancount file like this:
+
+```
+plugin "plugins.beancount-repete" "repeat_limit=tomorrow"
+```
 
 ## Installation into beancount repository 
 
